@@ -5,7 +5,7 @@
         <q-toolbar>
           <div class="row no-wrap q-px-lg">
             <q-btn flat dense rounded color="white" class="q-px-md" v-for="(item, index) in 5" :key="index">{{menu[index].label}}</q-btn>
-            <q-input dense borderless v-model="buscar" style="background: #e9e9e9b7; border-radius: 20px; height: 35px;">
+            <q-input dense borderless v-model="buscar" style="background: #838383cc; border-radius: 20px; height: 35px;">
               <template v-slot:prepend>
                 <q-icon color="grey" name="search"/>
               </template>

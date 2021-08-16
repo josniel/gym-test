@@ -90,7 +90,7 @@ export default {
     return {
       isPwd: false,
       loading: false,
-      register: false,
+      register: true,
       perfile: null,
       repeatPassword: '',
       password: '',

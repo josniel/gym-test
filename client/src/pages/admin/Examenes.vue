@@ -6,11 +6,11 @@
       <div class="text-h4 text-white text-bold q-mb-xl q-px-xl">Examen</div>
       <div>
         <div class="text-h5 text-white q-mb-sm q-px-md">Mis examenes</div>
-        <q-scroll-area horizontal style="height: 150px">
+        <q-scroll-area horizontal style="height: 175px">
           <div class="full-width row no-wrap">
-            <q-card class="q-mr-md" v-for="(item, index) in examenes" :key="index" style="width: 250px; border-radius: 20px;">
-              <q-card-section horizontal>
-                <q-card-section class="col">
+            <q-card class="q-mr-md column" v-for="(item, index) in examenes" :key="index" style="width: 250px; border-radius: 20px;">
+              <q-card-section class="col" horizontal>
+                <q-card-section class="col column justify-between">
                   <div class="text-subtitle1 text-bold text-primary">{{item.name}}</div>
                   <div class="column justify-between">
                     <div class="row items-center text-grey">
@@ -28,11 +28,11 @@
                   </div>
                 </q-card-section>
                 <q-separator vertical/>
-                <q-card-section>
-                  <div class="column items-center">
+                <q-card-section class="column">
+                  <div class="col column items-center justify-between">
                     <q-btn icon="visibility" color="primary" flat dense size="md"></q-btn>
                     <q-btn icon="edit" color="primary" flat dense size="md"></q-btn>
-                    <q-btn icon="delete" color="primary" flat dense size="md"></q-btn>
+                    <q-btn icon="delete" color="primary" flat dense size="md" @click="eiminarExam(item._id)"></q-btn>
                   </div>
                 </q-card-section>
               </q-card-section>
