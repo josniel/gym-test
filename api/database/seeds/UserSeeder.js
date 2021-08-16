@@ -19,8 +19,8 @@ const Factory = use('Factory')
 const userData = [
   {
     _id: '5e90d6e6f75366526a680091',
-    email: 'admin@pregunthales.com',
-    password: 'pregunthales2021',
+    email: 'admin@gymtest.com',
+    password: 'gymtest2021',
     full_name: 'Administrador',
     roles: [1]
   }

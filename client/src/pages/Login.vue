@@ -1,36 +1,47 @@
 <template>
-  <div class="absolute-center column items-center">
-    <img src="logo-pregunthales.jpg" style="height: 280px; max-width: 280px">
-
-    <div class="self-start text-grey-8">Ingresa correo o nombre de usuario</div>
-    <q-input dense outlined type="email" v-model="form.email" placeholder="micorreo@pregunthales.com" style="width: 300px"
-    :error="$v.form.email.$error" error-message="Este campo es requerido"  @blur="$v.form.email.$touch()" />
-
-    <div class="self-start text-grey-8">Ingresa tu contraseña</div>
-    <q-input dense outlined class="q-mb-sm" :type="isPwd ? 'password' : 'text'" v-model="form.password" placeholder="Contraseña" style="width: 300px"
-    :error="$v.form.password.$error" error-message="Este campo es requerido"  @blur="$v.form.password.$touch()">
-      <template v-slot:append>
-        <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd"/>
-      </template>
-    </q-input>
-
-    <div class="row">
-      <div class="text-caption">¿Olvidaste tu contraseña?</div>
-    </div>
-
-    <div class="q-my-md row justify-center" style="width: 100%">
-      <q-btn color="black" text-color="white" label="Ingresar" :loading="loading" @click="loguear()" no-caps class="q-py-xs" style="width: 100%">
-        <template v-slot:loading>
-          <q-spinner-hourglass class="on-center" />
-          Ingresando...
-        </template>
-      </q-btn>
-    </div>
-
-    <div class="row items-center">
-      <div class="text-grey-8">Soy nuevo, quiero</div>
-      <div>
-        <q-btn flat dense color="primary" label="REGISTRARME" @click="$router.push('/registro')" />
+  <div class="window-height">
+    <div style="background: linear-gradient(to right, #002938, #004e6d); border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 265px; width: 100%;"></div>
+    <!-- <q-img src="noimg.png" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 265px; width: 100%;"/> -->
+    <div class="absolute-full column q-px-md no-wrap">
+      <div class="q-mb-md">
+        <div class="text-center text-h2 q-pt-xl q-pb-lg">GymTest</div>
+        <div class="text-bold text-white">INICIO DE SESIÓN</div>
+      </div>
+      <div class="q-px-md q-py-lg bg-white" style="border-radius: 10px;">
+        <q-input dense filled type="email" v-model="form.email" placeholder="Usuario" :error="$v.form.email.$error" error-message="Este campo es requerido"  @blur="$v.form.email.$touch()">
+          <template v-slot:prepend>
+            <q-icon name="person"/>
+          </template>
+        </q-input>
+        <q-input dense filled class="q-mb-sm" type="password" v-model="form.password" placeholder="Contraseña" :error="$v.form.password.$error" error-message="Este campo es requerido"  @blur="$v.form.password.$touch()">
+          <template v-slot:prepend>
+            <q-icon name="lock"/>
+          </template>
+        </q-input>
+        <q-btn color="primary" text-color="white" label="Iniciar sesión" :loading="loading" @click="loguear()" no-caps class="full-width q-py-xs q-mb-md">
+          <template v-slot:loading>
+            <q-spinner-hourglass class="on-center" />
+            loading...
+          </template>
+        </q-btn>
+        <div class="row justify-center q-mb-lg">
+          <div class="text-grey q-mr-xs">Olvide</div>
+          <div class="text-bold text-primary">mi contraseña</div>
+        </div>
+        <div class="row justify-center items-center q-mb-lg">
+          <q-separator color="grey" class="col"/>
+          <div class="text-grey text-caption q-px-sm">O conectate usando</div>
+          <q-separator color="grey" class="col"/>
+        </div>
+        <div class="row justify-center q-mb-xl">
+          <q-avatar rounded class="q-mx-md bg-grey" size="50px" style="border-radius: 10px;"></q-avatar>
+          <q-avatar rounded class="q-mx-md bg-grey" size="50px" style="border-radius: 10px;"></q-avatar>
+          <q-avatar rounded class="q-mx-md bg-grey" size="50px" style="border-radius: 10px;"></q-avatar>
+        </div>
+        <div class="row justify-center">
+          <div class="text-grey text-caption q-mr-xs">¿No tienes cuenta aun?</div>
+          <div class="text-bold text-primary text-caption" @click="$router.push('/registro')">Crear una cuenta</div>
+        </div>
       </div>
     </div>
   </div>

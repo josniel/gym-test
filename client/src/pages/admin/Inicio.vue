@@ -1,6 +1,21 @@
 <template>
-  <div class="q-pa-md column items-center">
-    <div class="text-primary text-h3 text-weight-bolder">Bienvenido!</div>
+  <div>
+    <div style="background: linear-gradient(to right, #002938, #004e6d); height: 200px; width: 100%;"></div>
+    <!-- <q-img src="noimg.png" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 265px; width: 100%;"/> -->
+    <div class="column q-pa-lg no-wrap" style="margin-top: -200px">
+      <q-card class="q-mb-md full-width row" style="border-radius: 20px">
+        <q-card-section horizontal class="full-width justify-between">
+          <q-card-section>
+            <div class="row">
+              <div class="text-h5 q-mr-xs">Bienvenido de nuevo</div>
+              <div class="text-h5 text-primary">Admin</div>
+            </div>
+          </q-card-section>
+          <q-img src="noimg.png" style="height: 225px; width: 325px;"/>
+        </q-card-section>
+      </q-card>
+    </div>
+    <!-- <div class="text-primary text-h3 text-weight-bolder">Bienvenido!</div>
     <div class="text-black text-h6 q-mb-lg">Asignaturas</div>
 
     <div class="column items-center q-mt-md" style="width: 100%">
@@ -19,7 +34,7 @@
           </div>
         </div>
       </q-card>
-    </div>
+    </div> -->
   </div>
 </template>
 

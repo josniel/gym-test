@@ -213,7 +213,7 @@ const placeData = [
 ]
 
 class PlaceSeeder {
-  /* async run () {
+  async run () {
     for (let i in placeData) {
       let place = await Place.findBy('_id', placeData[i]._id)
       if (!place) {
@@ -221,7 +221,7 @@ class PlaceSeeder {
       }
     }
     console.log('Finished Place')
-  } */
+  }
 }
 
 module.exports = PlaceSeeder

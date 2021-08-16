@@ -1,81 +1,84 @@
 <template>
-  <div>
-    <q-carousel
-      v-model="slide"
-      animated
-      class="window-height"
-    >
-      <q-carousel-slide :name="1" class="q-pa-none" img-src="app movil 1.png" @click="slide = 2">
-        <div class="absolute-bottom q-pb-lg" style="width:100%">
-          <div class="text-center text-h6 text-indigo-10">Bienvenido a <b>Pregunthales</b></div>
-        </div>
-      </q-carousel-slide>
+  <div class="window-height">
+    <div style="background: linear-gradient(to right, #002938, #004e6d); border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 265px; width: 100%;"></div>
+    <!-- <q-img src="noimg.png" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 275px; width: 100%;"/> -->
 
-      <q-carousel-slide :name="2" class="q-pa-none">
-        <div class="row justify-center">
-          <q-img src="app movil 5.png" style="height: 280px; width: 100%">
-            <q-btn class="absolute-top" round flat color="white" icon="arrow_back" @click="$router.go(-1)" />
-          </q-img>
-        </div>
-
-        <div class="shadow-up-1 column items-center justify-center" style="border-top-left-radius: 20px; border-top-right-radius: 20px">
-          <div class="text-primary text-h6 q-py-md">Registro de usuario</div>
-          <div class="column items-center">
-            <q-avatar size="150px" class="bg-grey-5">
-              <q-img :src="perfile ? imgPerfil : 'app movil 30.png'" style="width: 100%; height: 100%">
-                <q-file class="absolute-center" borderless v-model="perfile" @input="changeProfile()" accept=".jpg, image/*" style="width: 100%; height: 100%; font-size: 0px">
+    <div class="absolute-full column q-px-md no-wrap">
+      <div class="q-mb-md" v-if="register">
+        <div class="text-center text-h3 q-pt-xl q-pb-lg">GymTest</div>
+        <div class="text-bold text-white">CREAR CUENTA</div>
+      </div>
+      <div class="q-pa-md" v-else>
+        <div class="text-h5">GymTest</div>
+        <div class="text-bold text-white">Bienvenido {{form.email}}</div>
+        <div class="text-caption text-white">Queremos conocerte más</div>
+        <div class="column q-mb-sm items-center">
+          <q-avatar size="125px" class="bg-grey-5">
+            <q-img :src="perfile ? imgPerfil : ''" style="height: 100%"/>
+            <q-badge outline round color="white" class="bg-grey-5" floating style="border-width: 5px; border-radius: 100%; margin-top: 80px; width: 50px; height: 50px;">
+              <q-avatar style="width: 100%; height: 50px;">
+                <q-file borderless v-model="perfile" @input="changeProfile()" accept=".jpg, image/*" style="height: 50px; font-size: 0px">
+                  <q-icon color="white" class="absolute-center" size="25px" name="photo_camera"/>
                 </q-file>
-              </q-img>
-            </q-avatar>
-            <div :class="$v.perfile.$error ? 'text-negative text-center' : 'text-grey-8 text-center'" style="font-size: 15px">Selecciona avatar</div>
-          </div>
-
-          <div class="row" style="width: 70%; min-width: 300px">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 q-px-sm">
-              <div class="text-grey-8">Nombre de usuario</div>
-              <q-input dense outlined type="text" v-model="form.name" placeholder="Ingresa un nombre" error-message="Este campo es requerido" :error="$v.form.name.$error" @blur="$v.form.name.$touch()">
-              </q-input>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 q-px-sm">
-              <div class="text-grey-8">Ingresa correo</div>
-              <q-input dense outlined type="email" v-model="form.email" placeholder="micorreo@pregunthales.com" :error="$v.form.email.$error" error-message="Ingrese un email válido"  @blur="$v.form.email.$touch()">
-              </q-input>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 q-px-sm">
-              <div class="text-grey-8">Contraseña</div>
-              <q-input dense outlined :type="isPwd ? 'text' : 'password'" v-model="password" placeholder="Ingresa una contraseña" error-message="Ingrese una contraseña válida, mínimo 6 caracteres" :error="$v.password.$error" @blur="$v.password.$touch()">
-                <template v-slot:append>
-                  <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd"/>
-                </template>
-              </q-input>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 q-px-sm">
-              <div class="text-grey-8">Repita contraseña</div>
-              <q-input dense outlined :type="isPwd ? 'text' : 'password'" v-model="repeatPassword" placeholder="Repita contraseña" error-message="Las contraseñas deben ser iguales" :error="$v.repeatPassword.$error" @blur="$v.repeatPassword.$touch()">
-              </q-input>
-            </div>
-          </div>
-
-          <div class="column items-center justify-center q-my-md" style="width: 70%">
-            <q-btn color="black" text-color="white" label="Registrar" :loading="loading" @click="registrarse()" no-caps class="q-py-xs" style="width:100%">
-              <template v-slot:loading>
-                <q-spinner-hourglass class="on-center" />
-                Registrando...
-              </template>
-            </q-btn>
-          </div>
+              </q-avatar>
+            </q-badge>
+          </q-avatar>
+          <div v-if="$v.perfile.$error" class="text-negative text-center" style="font-size: 15px">Imagen requerida</div>
         </div>
-      </q-carousel-slide>
-
-      <q-carousel-slide :name="3" class="q-pa-none" img-src="app movil 6.png">
-        <div class="absolute-bottom q-pb-xl" style="width:100%">
-          <div class="text-center text-h6 text-indigo-10">¿Quieres conocer <b @click="$router.push('/login')">nuestra tienda</b>?</div>
+      </div>
+      <div class="q-px-md q-py-lg bg-white" style="border-radius: 10px;">
+        <div v-if="register">
+          <q-input dense filled type="email" v-model="form.email" placeholder="Nombre o Usuario" :error="$v.form.email.$error" error-message="Este campo es requerido"  @blur="$v.form.email.$touch()">
+            <template v-slot:prepend>
+              <q-icon name="person"/>
+            </template>
+          </q-input>
+          <q-input dense filled class="q-mb-sm" type="password" v-model="password" placeholder="Contraseña" :error="$v.password.$error" error-message="Este campo es requerido"  @blur="$v.password.$touch()">
+            <template v-slot:prepend>
+              <q-icon name="lock"/>
+            </template>
+          </q-input>
+          <q-input dense filled class="q-mb-sm" type="password" v-model="repeatPassword" placeholder="Repetir contraseña" :error="$v.repeatPassword.$error" error-message="Este campo es requerido"  @blur="$v.repeatPassword.$touch()">
+            <template v-slot:prepend>
+              <q-icon name="lock"/>
+            </template>
+          </q-input>
+        </div>
+        <div v-else>
+          <q-input dense filled readonly v-model="form2.birthday" placeholder="Fecha de Nacimiento" error-message="Este campo es requerido" :error="$v.form2.birthday.$error" @blur="$v.form2.birthday.$touch()" @click="$refs.qDateProxy.show()">
+            <template v-slot:prepend>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                  <q-date v-model="form2.birthday" mask="DD/MM/YYYY"/>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+          <div class="text-bold text-primary">¿Donde vives?</div>
+          <div class="text-caption text-grey">Selecciona tu lugar de residencia</div>
+          <q-select dense filled label="" v-model="form2.community" :options="comunidades" option-label="name" option-value="_id" emit-value map-options @input="location = comunidades.filter(v => v._id === form2.community)[0].communities" error-message="Este campo es requerido" :error="$v.form2.community.$error" @blur="$v.form2.community.$touch()"/>
+          <q-select dense filled label="" v-model="form2.place" :options="location" option-label="name" option-value="_id" emit-value map-options error-message="Este campo es requerido" :error="$v.form2.place.$error" @blur="$v.form2.place.$touch()"/>
+        </div>
+        <q-btn color="primary" text-color="white" :label="register ? 'Crear cuenta' : 'Guardar'" :loading="loading" @click="register ? registrarse() : profile()" no-caps class="full-width q-py-xs q-mb-xl">
+          <template v-slot:loading>
+            <q-spinner-hourglass class="on-center" />
+            Registrando...
+          </template>
+        </q-btn>
+        <div v-if="register">
+          <div class="row justify-center items-center q-pt-lg q-mb-lg">
+            <q-separator color="grey" class="col"/>
+            <div class="text-grey text-caption q-px-sm">O conectate usando</div>
+            <q-separator color="grey" class="col"/>
+          </div>
           <div class="row justify-center">
-            <q-btn flat no-caps color="indigo-10" label="Omitir" @click="$router.push('/inicio')" />
+            <q-avatar rounded class="q-mx-md bg-grey" size="50px" style="border-radius: 10px;"></q-avatar>
+            <q-avatar rounded class="q-mx-md bg-grey" size="50px" style="border-radius: 10px;"></q-avatar>
+            <q-avatar rounded class="q-mx-md bg-grey" size="50px" style="border-radius: 10px;"></q-avatar>
           </div>
         </div>
-      </q-carousel-slide>
-    </q-carousel>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -87,50 +90,65 @@ export default {
     return {
       isPwd: false,
       loading: false,
+      register: false,
       perfile: null,
       repeatPassword: '',
       password: '',
       imgPerfil: '',
       slide: 1,
-      form: {}
+      user: {},
+      form: {},
+      form2: {},
+      comunidades: [],
+      location: []
     }
   },
   validations: {
     form: {
-      name: { required, maxLength: maxLength(20), minLength: minLength(2) },
       email: { required, email }
+    },
+    form2: {
+      birthday: { required },
+      community: { required },
+      place: { required }
     },
     perfile: { required },
     repeatPassword: { sameAsPassword: sameAs('password') },
     password: { required, maxLength: maxLength(256), minLength: minLength(6) }
   },
+  mounted () {
+    this.getComunidades()
+  },
   methods: {
     ...mapMutations('generals', ['login']),
+    getComunidades () {
+      this.$api.get('communities').then(res => {
+        if (res) {
+          this.comunidades = res
+          // console.log(this.comunidades)
+        }
+      })
+    },
     async registrarse () {
-      this.$v.$touch()
-      if (!this.$v.form.$error && !this.$v.perfile.$error && !this.$v.password.$error && !this.$v.repeatPassword.$error) {
+      this.$v.form.$touch()
+      this.$v.password.$touch()
+      this.$v.repeatPassword.$touch()
+      if (!this.$v.form.$error && !this.$v.password.$error && !this.$v.repeatPassword.$error) {
         this.$q.loading.show({
           message: 'Registrando Datos...'
         })
         this.form.roles = 2
         this.form.password = this.password
-        const formData = new FormData()
-        formData.append('files', this.perfile)
-        formData.append('dat', JSON.stringify(this.form))
-        await this.$api.post('register', formData, {
-          headers: {
-            'Content-Type': undefined
-          }
-        }).then(res => {
+        await this.$api.post('register', this.form).then(res => {
           if (res) {
-            this.$q.loading.hide()
             this.$q.notify({
-              message: 'Ya formas parte de Pregunthales, Bienvenido',
+              message: 'Ya formas parte de GymTest, Bienvenido',
               color: 'positive'
             })
             this.loguear()
           }
         })
+        this.$q.loading.hide()
       } else {
         this.$q.notify({
           message: 'Debe ingresar todos los datos correspondientes',
@@ -143,15 +161,50 @@ export default {
         if (res) {
           const usuario = res.SESSION_INFO.roles.find(value => value === 2)
           if (usuario) {
+            this.register = false
             this.login(res)
-            this.slide = 3
+            this.$api.get('user_info').then(user => {
+              if (user) {
+                this.user = user
+              }
+            })
           }
         } else {
           console.log('error de ususario')
           // this.loading = false
         }
-        this.$q.loading.hide()
       })
+    },
+    async profile () {
+      this.$v.form2.$touch()
+      this.$v.perfile.$touch()
+      if (!this.$v.form2.$error && !this.$v.perfile.$error) {
+        this.$q.loading.show({
+          message: 'Guardando Datos...'
+        })
+        const formData = new FormData()
+        formData.append('files', this.perfile)
+        formData.append('dat', JSON.stringify(this.form2))
+        await this.$api.put('updateUser/' + this.user._id, formData, {
+          headers: {
+            'Content-Type': undefined
+          }
+        }).then(res => {
+          if (res) {
+            this.$q.notify({
+              message: 'Perfil guardado, Bienvenido',
+              color: 'positive'
+            })
+            this.$router.push('/inicio')
+          }
+          this.$q.loading.hide()
+        })
+      } else {
+        this.$q.notify({
+          message: 'Debe ingresar todos los datos correspondientes',
+          color: 'negative'
+        })
+      }
     },
     changeProfile () {
       if (this.perfile) { this.imgPerfil = URL.createObjectURL(this.perfile) }

@@ -1,5 +1,52 @@
 <template>
-  <div class="q-pa-md column items-center">
+  <div>
+    <div style="background: linear-gradient(to right, #002938, #004e6d); height: 200px; width: 100%;"></div>
+    <!-- <q-img src="noimg.png" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 265px; width: 100%;"/> -->
+    <div class="column q-pa-lg no-wrap" style="margin-top: -200px">
+      <div class="text-h4 text-white text-bold q-mb-xl q-px-xl">Examen</div>
+      <div>
+        <div class="text-h5 text-white q-mb-sm q-px-md">Mis examenes</div>
+        <q-scroll-area horizontal style="height: 150px">
+          <div class="full-width row no-wrap">
+            <q-card class="q-mr-md" v-for="(item, index) in examenes" :key="index" style="width: 250px; border-radius: 20px;">
+              <q-card-section horizontal>
+                <q-card-section class="col">
+                  <div class="text-subtitle1 text-bold text-primary">{{item.name}}</div>
+                  <div class="column justify-between">
+                    <div class="row items-center text-grey">
+                      <q-icon size="20px" name="date_range" class="q-mr-xs"/>
+                      <div>{{item.convocatoria}}</div>
+                    </div>
+                    <div class="row items-center text-grey">
+                      <q-icon size="20px" name="account_tree" class="q-mr-xs"/>
+                      <div>Gestion</div>
+                    </div>
+                    <div class="row items-center text-grey">
+                      <q-icon size="20px" name="schedule" class="q-mr-xs"/>
+                      <div>10 minutos</div>
+                    </div>
+                  </div>
+                </q-card-section>
+                <q-separator vertical/>
+                <q-card-section>
+                  <div class="column items-center">
+                    <q-btn icon="visibility" color="primary" flat dense size="md"></q-btn>
+                    <q-btn icon="edit" color="primary" flat dense size="md"></q-btn>
+                    <q-btn icon="delete" color="primary" flat dense size="md"></q-btn>
+                  </div>
+                </q-card-section>
+              </q-card-section>
+            </q-card>
+          </div>
+        </q-scroll-area>
+      </div>
+      <q-btn color="primary" dense no-caps size="md">
+        <q-file borderless v-model="file" hint="(.xls, .xlsx, .xltx, .ods, .ots, .csv)" accept=".xls, .xlsx, .xltx, .ods, .ots, .csv/*" @input="changeFile()" style="height: 30px; font-size: 0px"/>
+        <div class="absolute-center">Importar archivo</div>
+      </q-btn>
+    </div>
+  </div>
+  <!-- <div class="q-pa-md column items-center">
     <div class="text-primary text-h3 text-weight-bolder q-mb-lg">Examenes</div>
     <q-list class="column items-center" style="width: 100%" v-if="examenes.length > 0">
       <q-card v-for="(item,index) in examenes" :key="index" v-ripple class="q-pa-sm q-mb-md bordes" style="width: 75%; min-width: 300px; max-width: 500px">
@@ -45,7 +92,7 @@
     <q-page-sticky position="bottom-right" :offset="[20, 20]">
       <q-btn round icon="add" color="primary" size="20px" @click="editExam()"/>
     </q-page-sticky>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -57,7 +104,8 @@ export default {
       nuevo: false,
       form: {},
       item: 0,
-      examenes: []
+      examenes: [],
+      file: null
     }
   },
   validations: {
@@ -145,6 +193,29 @@ export default {
           this.examenes = res
         }
       })
+    },
+    changeFile () {
+      if (this.file !== null) {
+        this.$q.loading.show({
+          message: 'Subiendo datos, esto puede tomar un tiempo...'
+        })
+        const formData = new FormData()
+        formData.append('fileExcel', this.file)
+        this.$api.post('excel_examen', formData, {
+          headers: {
+            'Content-Type': undefined
+          }
+        }).then(res => {
+          if (res) {
+            this.$q.notify({
+              message: 'Preguntas Cargadas Correctamente',
+              color: 'positive'
+            })
+            this.getExam()
+          }
+          this.$q.loading.hide()
+        })
+      }
     }
   }
 }

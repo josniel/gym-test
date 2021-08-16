@@ -63,9 +63,7 @@ class UserController {
   }
 
   async register({ request, response }) {
-    var dat = request.only(['dat'])
-    dat = JSON.parse(dat.dat)
-
+    var dat = request.all()
     if (((await User.where({email: dat.email}).fetch()).toJSON()).length) {
       response.unprocessableEntity([{
         message: 'Correo ya registrado en el sistema!'
@@ -74,21 +72,7 @@ class UserController {
       let body = dat
       const rol = body.roles
       body.roles = [rol]
-      body.points = 0
       const user = await User.create(body)
-
-      const profilePic = request.file('files', {
-        types: ['image']
-      })
-      if (Helpers.appRoot('storage/uploads/perfil')) {
-        await profilePic.move(Helpers.appRoot('storage/uploads/perfil'), {
-          name: user._id.toString(),
-          overwrite: true
-        })
-      } else {
-        mkdirp.sync(`${__dirname}/storage/Excel`)
-      }
-
       response.send(user)
     }
   }
@@ -99,7 +83,19 @@ class UserController {
   }
 
   async update ({ params, request, response }) {
-    var dat = request.body
+    var dat = request.only(['dat'])
+    dat = JSON.parse(dat.dat)
+    const profilePic = request.file('files', {
+      types: ['image']
+    })
+    if (Helpers.appRoot('storage/uploads/perfil')) {
+      await profilePic.move(Helpers.appRoot('storage/uploads/perfil'), {
+        name: params.id,
+        overwrite: true
+      })
+    } else {
+      mkdirp.sync(`${__dirname}/storage/Excel`)
+    }
     // const validation = await validate(dat, Asignatura.fieldValidationRules())
     // if (validation.fails()) {
     //   response.unprocessableEntity(validation.messages())

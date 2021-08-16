@@ -20,7 +20,7 @@ class CommunityController {
    */
   async index ({ request, response, view }) {
     try {
-      let data = (await Community.query().where({}).fetch()).toJSON()
+      let data = (await Community.query().where({}).with('communities').fetch()).toJSON()
       response.send(data)
     } catch (error) {
       console.error('index Community: ' + error.name + ': ' + error.message);

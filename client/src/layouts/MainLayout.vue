@@ -1,33 +1,33 @@
 <template>
   <div>
     <q-layout view="lHh Lpr lFf">
-      <q-header v-if="rol !== 2" elevated class="bg-white">
+      <q-header v-if="rol === 1" style="background: linear-gradient(to right, #002938, #004e6d);">
         <q-toolbar>
-          <q-btn flat dense round color="primary" icon="menu" aria-label="Menu" @click="DrawerOpen = !DrawerOpen"/>
-
-          <q-toolbar-title class="row">
-            <img src="logo-pregunthales.jpg" style="width: 50px; height: 50px">
-            <div class="text-bold text-primary column justify-center q-pl-sm">Pregunthales</div>
-          </q-toolbar-title>
+          <div class="row no-wrap q-px-lg">
+            <q-btn flat dense rounded color="white" class="q-px-md" v-for="(item, index) in 5" :key="index">{{menu[index].label}}</q-btn>
+            <q-input dense borderless v-model="buscar" style="background: #e9e9e9b7; border-radius: 20px; height: 35px;">
+              <template v-slot:prepend>
+                <q-icon color="grey" name="search"/>
+              </template>
+            </q-input>
+          </div>
         </q-toolbar>
       </q-header>
 
-      <q-drawer v-model="DrawerOpen" bordered>
-        <q-list>
-          <q-item-label header class="column items-center">
-            <img src="logo-pregunthales.jpg" style="height: 280px; max-width: 280px">
-          </q-item-label>
-          <template v-for="(item, index) in menu">
-            <q-item :key="index" clickable v-ripple @click="item.label === 'Cerrar Sesión' ? cerrarSesion() : item.label === 'Datos Masivos' ? uploadData() : rutas(item)">
-              <q-item-section avatar>
-                <q-icon :name="item.icon" />
-              </q-item-section>
-              <q-item-section>
-                  {{ item.label }}
-              </q-item-section>
-            </q-item>
-            <q-separator :key="'sep' + index" />
-          </template>
+      <q-drawer v-if="rol === 1" v-model="DrawerOpen" style="width: 175px;">
+        <div class="row items-center justify-center" style="background: linear-gradient(to right, #002938, #004e6d); height: 200px; width: 100%;">
+          <div>
+            <div class="text-center text-h3 q-mb-md">GymTest</div>
+            <div class="text-center text-bold text-h5 text-white">Admin</div>
+          </div>
+        </div>
+        <q-list class="row q-pa-sm">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 q-pa-sm" v-for="(item, index) in menu" :key="index">
+            <q-btn flat stack dense :color="selecBtn === item.label ? 'white' : 'primary'" class="q-px-md text-no-wrap" @click="item.label === 'Cerrar Sesión' ? cerrarSesion() : rutas(item)" :style="`${selecBtn === item.label ? 'background: linear-gradient(to right, #002938, #004e6d);' : ''} width: 100%;`" no-caps>
+              <q-img src="" style="width: 70px; height: 70px;"/>
+              {{item.label}}
+            </q-btn>
+          </div>
         </q-list>
       </q-drawer>
 
@@ -56,18 +56,35 @@ export default {
     return {
       rol: null,
       user: {},
-      DrawerOpen: false,
+      buscar: '',
+      selecBtn: '',
+      DrawerOpen: true,
       menu: [],
       menuAdmin: [
         {
           icon: 'menu_book',
-          label: 'Asignaturas',
+          label: 'Home',
           ruta: '/administrador'
         },
         {
-          icon: 'person',
-          label: 'Usuarios',
-          ruta: '/usuarios'
+          icon: '',
+          label: 'Temas',
+          ruta: ''
+        },
+        {
+          icon: '',
+          label: 'Preguntas',
+          ruta: ''
+        },
+        {
+          icon: '',
+          label: 'Examenes',
+          ruta: '/exams'
+        },
+        {
+          icon: '',
+          label: 'Blog',
+          ruta: ''
         },
         {
           icon: 'logout',
@@ -109,6 +126,7 @@ export default {
         if (v) {
           this.rol = v.roles[0]
           this.user = v
+          console.log(this.user)
           if (this.rol === 1) {
             this.menu = this.menuAdmin
           } else if (this.rol === 2) {
@@ -118,18 +136,11 @@ export default {
       })
     },
     cerrarSesion () {
-      this.$q.loading.show({
-        message: 'Cerrando Sesión...'
-      })
-      this.$api.put('updateUser/' + this.user._id, this.user).then((res) => {
-        if (res) {
-          this.$q.loading.hide()
-          this.logout()
-          this.$router.push('/login')
-        }
-      })
+      this.logout()
+      this.$router.push('/login')
     },
     rutas (itm) {
+      this.selecBtn = itm.label
       this.$router.push(itm.ruta)
     }
   }
