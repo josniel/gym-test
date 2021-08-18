@@ -3,41 +3,25 @@
     <div style="background: linear-gradient(to right, #002938, #004e6d); height: 200px; width: 100%;"></div>
     <!-- <q-img src="noimg.png" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 265px; width: 100%;"/> -->
     <div class="column q-pa-lg no-wrap" style="margin-top: -200px">
-      <div class="text-h4 text-white text-bold q-mb-xl q-px-xl">Examen</div>
+      <div class="text-h4 text-white text-bold q-mb-xl q-px-xl">Blogs</div>
       <div>
-        <div class="text-h5 text-white q-mb-sm q-px-md">Mis examenes</div>
-        <q-scroll-area horizontal style="height: 175px">
+        <div class="text-h5 text-white q-mb-sm q-px-md">Blogs recientes</div>
+        <q-scroll-area horizontal style="height: 230px">
           <div class="full-width row no-wrap">
-            <q-card class="q-mr-md column bordes" v-for="(item, index) in examenes" :key="index" style="width: 275px;">
-              <q-card-section class="col" horizontal>
-                <q-card-section class="col column justify-between">
-                  <div class="text-subtitle1 text-bold text-primary">{{item.name}}</div>
-                  <div class="column justify-between">
-                    <div class="row items-center text-grey">
-                      <q-icon size="20px" name="date_range" class="q-mr-xs"/>
-                      <div>{{item.convocatoria}}</div>
-                    </div>
-                    <div class="row items-center text-grey">
-                      <q-icon size="20px" name="account_tree" class="q-mr-xs"/>
-                      <div>Gestion</div>
-                    </div>
-                    <div class="row items-center text-grey">
-                      <q-icon size="20px" name="schedule" class="q-mr-xs"/>
-                      <div>10 minutos</div>
-                    </div>
-                  </div>
+            <q-card class="q-mr-md column bordes" v-for="(item, index) in blogs" :key="index" style="width: 260px; border-radius: 20px;">
+              <q-img src="noimg.png" style="height: 130px"/>
+              <q-card-section class="items-center" horizontal>
+                <q-card-section class="ellipsis" style="width: 150px">
+                  <div class="text-subtitle1 text-bold text-primary ellipsis">{{item.name}}</div>
+                  <div class="text-subtitle2 text-grey">Gestion</div>
                 </q-card-section>
-                <q-separator color="primary" vertical/>
-                <q-card-section class="column">
-                  <div class="col column items-center justify-between">
-                    <q-btn flat dense>
-                      <q-img src="visibility.png" style="height: 25px; width: 35px;"/>
+                <q-card-section>
+                  <div class="row no-wrap items-center">
+                    <q-btn flat dense @click="editTopic(item)">
+                      <q-img src="edit.png" style="height: 35px; width: 35px;"/>
                     </q-btn>
-                    <q-btn flat dense @click="editExam(item)">
-                      <q-img src="edit.png" style="height: 30px; width: 30px;"/>
-                    </q-btn>
-                    <q-btn flat dense @click="eiminarExam(item._id)">
-                      <q-img src="delete.png" style="height: 30px; width: 30px;"/>
+                    <q-btn flat dense @click="eiminarTopic(item._id)">
+                      <q-img src="delete.png" style="height: 35px; width: 35px;"/>
                     </q-btn>
                   </div>
                 </q-card-section>
@@ -65,10 +49,25 @@
         </q-card-section>
         <q-card-actions align="right">
           <q-btn flat label="Cancelar" color="primary" v-close-popup @click="decartarCamb()" no-caps/>
-          <q-btn flat :label="edit ? 'Actualizar' :  'Crear'" color="primary" v-close-popup @click="edit ? actualizarExam() : nuevo ? crearExam() : ''" no-caps/>
+          <q-btn flat :label="edit ? 'Actualizar' :  'Crear'" color="primary" v-close-popup @click="edit ? actualizarTopic() : nuevo ? crearTopic() : ''" no-caps/>
         </q-card-actions>
       </q-card>
     </q-dialog>
+    <!-- <div class="text-h3 col-10 row justify-center q-my-sm text-primary text-weight-bolder">Fecha Examen</div>
+    <q-card class="row justify-start bg-blue-2">
+      <div class="column q-ma-md">
+        <div class="text-h6 text-primary">Programar Nueva Fecha</div>
+        <div class="row">
+          <q-btn @click="newDE = true" class="text-subtitle1" padding="10px 5px" color="primary" icon="add" no-caps>Nueva</q-btn>
+        </div>
+      </div>
+    </q-card>
+    <q-dialog v-model="newDE" @hide="reload">
+      <new-date-exam @close="closeComponent" :id="dateExam_id"/>
+    </q-dialog>
+    <div class="row justify-center">
+      <listable style="min-width: 900px" :columns="columns" :data="data" @function="execute"/>
+    </div> -->
   </div>
 </template>
 
@@ -80,7 +79,7 @@ export default {
       edit: false,
       nuevo: false,
       form: {},
-      examenes: [],
+      blogs: [],
       file: null
     }
   },
@@ -90,23 +89,23 @@ export default {
     }
   },
   mounted () {
-    this.getExam()
+    this.getBlogs()
   },
   methods: {
-    actualizarExam () {
+    actualizarBlog () {
       this.$v.form.$touch()
       if (!this.$v.form.$error) {
         this.$q.loading.show({
-          message: 'Actualizando Examen, Por Favor Espere...'
+          message: 'Actualizando blog, Por Favor Espere...'
         })
-        this.$api.put('examen/' + this.form._id, this.form).then((res) => {
+        this.$api.put('/' + this.form._id, this.form).then((res) => {
           if (res) {
             this.$q.loading.hide()
             this.$q.notify({
               color: 'positive',
-              message: 'Examen Actualizado Correctamente'
+              message: 'Pregunta Actualizada Correctamente'
             })
-            this.getExam()
+            this.getTopics()
           }
         })
       }
@@ -115,7 +114,7 @@ export default {
       this.form = {}
       this.edit = false
     },
-    editExam (itm) {
+    editBlog (itm) {
       if (itm) {
         const datos = { ...itm }
         this.form = datos
@@ -125,87 +124,56 @@ export default {
         this.nuevo = true
       }
     },
-    crearExam () {
+    crearBlog () {
       this.$v.$touch()
       if (!this.$v.form.$error) {
         this.$q.loading.show({
-          message: 'Subiendo Examen, Por Favor Espere...'
+          message: 'Subiendo blog, Por Favor Espere...'
         })
-        this.$api.post('examen', this.form).then((res) => {
+        this.$api.post('', this.form).then((res) => {
           if (res) {
             this.$q.loading.hide()
             this.$q.notify({
               color: 'positive',
-              message: 'Examen Creado Correctamente'
+              message: 'Pregunta Creada Correctamente'
             })
-            this.getExam()
+            this.getTopics()
           }
         })
       }
     },
-    eiminarExam (id) {
+    eiminarBlog (id) {
       this.$q.dialog({
         title: 'Confirma',
         message: '¿Seguro deseas eliminar este examen?',
         cancel: true,
         persistent: true
       }).onOk(() => {
-        this.$api.delete('examen/' + id).then(res => {
+        this.$api.delete('/' + id).then(res => {
           if (res) {
             this.$q.notify({
               color: 'positive',
               message: 'Eliminado Correctamente'
             })
-            this.getExam()
+            this.getTopics()
           }
         })
       }).onCancel(() => {
         // console.log('>>>> Cancel')
       })
     },
-    getExam () {
+    getBlogs () {
       this.$q.loading.show({
         message: 'Cargando datos...'
       })
-      this.$api.get('examen').then(res => {
+      this.$api.get('blogs').then(res => {
         if (res) {
-          this.examenes = res
-          console.log(this.examenes)
+          this.blogs = res
+          console.log(this.blogs)
         }
         this.$q.loading.hide()
       })
-    },
-    changeFile () {
-      if (this.file !== null) {
-        this.$q.loading.show({
-          message: 'Subiendo datos, esto puede tomar un tiempo...'
-        })
-        const formData = new FormData()
-        formData.append('fileExcel', this.file)
-        this.$api.post('excel_exam', formData, {
-          headers: {
-            'Content-Type': undefined
-          }
-        }).then(res => {
-          if (res) {
-            this.$q.notify({
-              message: 'Examenes Cargados Correctamente',
-              color: 'positive'
-            })
-            this.file = null
-            this.getExam()
-          }
-          this.$q.loading.hide()
-        })
-      }
     }
   }
 }
 </script>
-
-<style scoped lang="scss">
-.bordes {
-  border-right: 10px solid $primary;
-  border-radius: 20px;
-}
-</style>

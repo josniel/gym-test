@@ -1,5 +1,5 @@
 'use strict'
-const DateExam = use("App/Models/DateExam")
+const Blog = use("App/Models/Blog")
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -8,7 +8,7 @@ const DateExam = use("App/Models/DateExam")
 /**
  * Resourceful controller for interacting with dateexams
  */
-class DateExamController {
+class BlogController {
   /**
    * Show a list of all dateexams.
    * GET dateexams
@@ -19,31 +19,12 @@ class DateExamController {
    * @param {View} ctx.view
    */
   async index ({ response }) {
-    let data = (await DateExam.query().where({}).with('community').with('placeO').fetch()).toJSON();
-    for (let i in data) {
-      data[i].community_name = data[i].community.name
-      data[i].place_name = data[i].placeO.name
-      data[i].actions = [
-        {
-          color: "primary",
-          icon: "edit",
-          url: "",
-          action: "",
-          title: "Editar",
-        },
-        {
-          color: "red",
-          icon: "delete",
-          url: "",
-          action: "",
-          title: "Eliminar",
-        }
-      ]  
-    }
+    let data = await Blog.all()
     response.send(data);
   }
+
   async dateExamUser ({ response }) {
-    let data = (await DateExam.query().where({}).with('community').with('placeO').fetch()).toJSON();
+    /* let data = (await DateExam.query().where({}).with('community').with('placeO').fetch()).toJSON();
     for (let i in data) {
       data[i].community_name = data[i].community.name
       data[i].place_name = data[i].placeO.name
@@ -57,7 +38,7 @@ class DateExamController {
         }
       ]
     }
-    response.send(data);
+    response.send(data); */
   }
 
   /**
@@ -81,14 +62,14 @@ class DateExamController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
-    try {
+    /* try {
       let body = request.body
       console.log('body :>> ', body);
       let store = await DateExam.create(body)
       response.send(store)
     } catch (error) {
       console.error('Store DateExam: ' + error.name + ': ' + error.message);
-    }
+    } */
   }
 
   /**
@@ -101,13 +82,13 @@ class DateExamController {
    * @param {View} ctx.view
    */
   async show ({ params, response }) {
-    try {
+    /* try {
       let { id } = params
       let data = (await DateExam.query().find(id)).toJSON()
       response.send(data)
     } catch (error) {
       console.error('show DateExam: ' + error.name + ': ' + error.message);
-    }
+    } */
   }
 
   /**
@@ -133,7 +114,7 @@ class DateExamController {
   async update ({ params, request, response }) {
     try {
       let dateExam = request.body
-      const update = await DateExam.query().where('_id', params.id).update(dateExam)
+      const update = await Blog.query().where('_id', params.id).update(dateExam)
       response.send(update)
     } catch (error) {
       console.error('Update DateExam ' + error.name + ': ' + error.message);
@@ -149,9 +130,9 @@ class DateExamController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
-    const toDestroy = await DateExam.where('_id', params.id).delete()
+    const toDestroy = await Blog.where('_id', params.id).delete()
     response.send(toDestroy)
   }
 }
 
-module.exports = DateExamController
+module.exports = BlogController

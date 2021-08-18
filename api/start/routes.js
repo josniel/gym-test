@@ -56,18 +56,21 @@ addPrefixToGroup(
     Route.get('getCourseWithTest/:id', 'AsignaturaController.getCourseWithTest')
     Route.put('updateAsignatura/:id', 'AsignaturaController.update')
 
-    Route.get('tema', 'TemaController.index')
-    Route.get('test_by_course/:id', 'NivelesController.testByCourse')
+    Route.get('topics', 'TopicController.index')
+    Route.post('excel_topic', 'TopicController.excelTopic')
+
+    /* Route.get('test_by_course/:id', 'NivelesController.testByCourse')
     Route.get('testbByCourse/:id', 'NivelesController.testByCourseId')
     Route.get('testById/:id', 'NivelesController.testById')
     Route.get('testExamById/:id', 'NivelesController.testExamById')
     Route.post('nivel', 'NivelesController.store')
     Route.put('nivel/:id', 'NivelesController.update')
-    Route.delete('nivel/:id', 'NivelesController.destroy')
+    Route.delete('nivel/:id', 'NivelesController.destroy') */
 
     Route.get('examen', 'ExamenController.index')
     Route.get('ExamById/:id', 'ExamenController.examById')
     Route.post('examen', 'ExamenController.store')
+    Route.post('excel_exam', 'ExamenController.excelExam')
     Route.get('getExamWithTest/:id', 'ExamenController.getExamWithTest')
     Route.put('examen/:id', 'ExamenController.update')
     Route.delete('examen/:id', 'ExamenController.destroy')
@@ -77,10 +80,10 @@ addPrefixToGroup(
     Route.get('placesByCommunityId/:id', 'PlaceController.show')
 
     Route.post('uploadExcel', 'UploadController.excel')
-    Route.post('excel_examen', 'UploadController.excelExam')
     Route.post('bigData', 'UploadController.bigData')
 
     Route.post('newQuest', 'QuestionController.store')
+    Route.post('excel_question', 'QuestionController.excelQuestion')
     Route.put('multiplesQuestions', 'QuestionController.multiplesQuestions')
     Route.get('getQuestions', 'QuestionController.index')
     Route.get('getQuestionsbyTest/:id', 'QuestionController.getQuestionsbyTest')
@@ -90,12 +93,12 @@ addPrefixToGroup(
     Route.get('questById/:id', 'QuestionController.show')
     Route.delete('destroyQuest/:id', 'QuestionController.destroy')
 
-    Route.post('newDateExam', 'DateExamController.store')
-    Route.put('updateDateExam/:id', 'DateExamController.update')
-    Route.get('dateExam', 'DateExamController.index')
-    Route.get('dateExamUser', 'DateExamController.dateExamUser')
-    Route.delete('destroyDateExam/:id', 'DateExamController.destroy')
-    Route.get('dateExamById/:id', 'DateExamController.show')
+    Route.post('newBlog', 'BlogController.store')
+    Route.put('updateBlog/:id', 'BlogController.update')
+    Route.get('blogs', 'BlogController.index')
+    // Route.get('dateExamUser', 'DateExamController.dateExamUser')
+    Route.delete('destroyBlog/:id', 'BlogController.destroy')
+    Route.get('blogById/:id', 'BlogController.show')
 
     Route.post('answer', 'AnswerController.store')
     Route.put('answer/:id', 'AnswerController.update')

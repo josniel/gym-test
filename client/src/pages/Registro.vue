@@ -1,21 +1,23 @@
 <template>
   <div class="window-height">
-    <div style="background: linear-gradient(to right, #002938, #004e6d); border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 265px; width: 100%;"></div>
+    <div style="background: linear-gradient(to right, #002938, #004e6d); border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 300px; width: 100%;"></div>
     <!-- <q-img src="noimg.png" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 275px; width: 100%;"/> -->
 
     <div class="absolute-full column q-px-md no-wrap">
       <div class="q-mb-md" v-if="register">
-        <div class="text-center text-h3 q-pt-xl q-pb-lg">GymTest</div>
-        <div class="text-bold text-white">CREAR CUENTA</div>
+        <div class="column items-center q-pt-xl q-pb-lg">
+          <q-img src="gymtest 1.png" style="width: 300px"/>
+        </div>
+        <div class="text-bold text-h6 text-white">CREAR CUENTA</div>
       </div>
       <div class="q-pa-md" v-else>
-        <div class="text-h5">GymTest</div>
+        <q-img src="gymtest 1.png" style="width: 150px; margin-left: -15px;"/>
         <div class="text-bold text-white">Bienvenido {{form.email}}</div>
         <div class="text-caption text-white">Queremos conocerte más</div>
         <div class="column q-mb-sm items-center">
           <q-avatar size="125px" class="bg-grey-5">
-            <q-img :src="perfile ? imgPerfil : ''" style="height: 100%"/>
-            <q-badge outline round color="white" class="bg-grey-5" floating style="border-width: 5px; border-radius: 100%; margin-top: 80px; width: 50px; height: 50px;">
+            <q-img :src="perfile ? imgPerfil : 'avatar gris 1.png'" style="height: 100%"/>
+            <q-badge round class="bg-grey-5" floating style="border-radius: 100%; margin-top: 80px; width: 50px; height: 50px;">
               <q-avatar style="width: 100%; height: 50px;">
                 <q-file borderless v-model="perfile" @input="changeProfile()" accept=".jpg, image/*" style="height: 50px; font-size: 0px">
                   <q-icon color="white" class="absolute-center" size="25px" name="photo_camera"/>
@@ -68,13 +70,19 @@
         <div v-if="register">
           <div class="row justify-center items-center q-pt-lg q-mb-lg">
             <q-separator color="grey" class="col"/>
-            <div class="text-grey text-caption q-px-sm">O conectate usando</div>
+            <div class="text-grey q-px-sm">O conectate usando</div>
             <q-separator color="grey" class="col"/>
           </div>
           <div class="row justify-center">
-            <q-avatar rounded class="q-mx-md bg-grey" size="50px" style="border-radius: 10px;"></q-avatar>
-            <q-avatar rounded class="q-mx-md bg-grey" size="50px" style="border-radius: 10px;"></q-avatar>
-            <q-avatar rounded class="q-mx-md bg-grey" size="50px" style="border-radius: 10px;"></q-avatar>
+            <q-avatar rounded class="q-mx-md" size="50px" style="border-radius: 15px;">
+              <q-img src="fa 1.png" class="full-height"/>
+            </q-avatar>
+            <q-avatar rounded class="q-mx-md" size="50px" style="border-radius: 15px;">
+              <q-img src="email 1.png" class="full-height"/>
+            </q-avatar>
+            <q-avatar rounded class="q-mx-md" size="50px" style="border-radius: 15px;">
+              <q-img src="twte 1.png" class="full-height"/>
+            </q-avatar>
           </div>
         </div>
       </div>

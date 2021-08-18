@@ -6,7 +6,10 @@ const routes = [
     children: [
       // Admin
       { path: '/administrador', component: () => import('pages/admin/Inicio.vue') },
+      { path: '/topics', component: () => import('pages/admin/Topics.vue') },
+      { path: '/questions', component: () => import('pages/admin/Question.vue') },
       { path: '/exams', component: () => import('pages/admin/Examenes.vue') },
+      { path: '/blog', component: () => import('pages/admin/Blog.vue') },
       /* onent: () => import('pages/admin/Examenes.vue') },
       { path: '/tests_exam/:id', component: () => import('pages/admin/TestsExam.vue') },
       { path: '/exam/:id', component: () => import('pages/admin/Exam.vue') },
@@ -29,15 +32,16 @@ const routes = [
   /* { path: '/nivel/:id', component: () => import('pages/user/NivelTest.vue') },
   { path: '/nivel/:id/:idDesafio', component: () => import('pages/user/NivelTest.vue') }, */
 
+  { path: '/splash', component: () => import('pages/Splash.vue') },
   { path: '/login', component: () => import('pages/Login.vue') },
   { path: '/registro', component: () => import('pages/Registro.vue') },
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/splash'
   },
   {
     path: '*',
-    redirect: '/login'
+    redirect: '/splash'
   },
   // Always leave this as last one,
   // but you can also remove it

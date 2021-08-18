@@ -1,5 +1,7 @@
 'use strict'
-const Nivele = use("App/Models/Nivele")
+const ExcelJS = require('exceljs');
+const MoveFileService = use("App/Services/MoveFileService")
+const Topic = use("App/Models/Topic")
 const Question = use("App/Models/Question")
 const Helpers = use('Helpers')
 const mkdirp = use('mkdirp')
@@ -12,7 +14,7 @@ var ObjectId = require('mongodb').ObjectId;
 /**
  * Resourceful controller for interacting with tests
  */
-class NivelesController {
+class TopicController {
   /**
    * Show a list of all tests.
    * GET tests
@@ -23,6 +25,8 @@ class NivelesController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    let data = await Topic.all()
+    response.send(data)
   }
 
   /**
@@ -46,7 +50,7 @@ class NivelesController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
-    try {
+    /* try {
       var data = request.only(['dat'])
       data = JSON.parse(data.dat)
       data.family_id = new ObjectId(data.family_id)
@@ -58,7 +62,7 @@ class NivelesController {
         id = parseInt(id[lastT].id) + 1
         data.id = id
       }
-      let save = await Nivele.create(data)
+      let save = await Topic.create(data)
 
       const profilePic = request.file('files', {
         types: ['image']
@@ -75,7 +79,31 @@ class NivelesController {
       response.send(save)
     } catch (error) {
       console.error('metodo store:' + error.name + ':' + error.message);
-    }
+    } */
+  }
+
+  async excelTopic ({request, response}) {
+    let files = request.file('fileExcel')
+    var filePath = await MoveFileService.moveFile(files)
+    var workbook = new ExcelJS.Workbook()
+    workbook = await workbook.xlsx.readFile(filePath)
+    let explanation = workbook.getWorksheet('Hoja1')
+    let colComment = explanation.getColumn('B')
+    colComment.eachCell(async (cell, rowNumber) => {
+      if (rowNumber >= 2) {
+        let topic = {}
+        let id = explanation.getCell('A' + rowNumber).value
+        let tema = explanation.getCell('B' + rowNumber).value
+        let long_name = explanation.getCell('C' + rowNumber).value
+        let name = explanation.getCell('D' + rowNumber).value
+        if (id.result) { topic.id = id.result } else { topic.id = id }
+        topic.tema = tema
+        topic.long_name = long_name
+        topic.name = name
+        let save = await Topic.create(topic)
+      }
+    })
+    response.send(true)
   }
 
   /**
@@ -111,7 +139,7 @@ class NivelesController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
-    var data = request.only(['dat'])
+    /* var data = request.only(['dat'])
     data = JSON.parse(data.dat)
     data.family_id = new ObjectId(data.family_id)
     if (data.file) {
@@ -128,8 +156,8 @@ class NivelesController {
       }
     }
     delete data.file
-    let update = await Nivele.query().where('_id', params.id).update(data)
-    response.send(update)
+    let update = await Topic.query().where('_id', params.id).update(data)
+    response.send(update) */
   }
 
   /**
@@ -141,15 +169,16 @@ class NivelesController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
-    let test = await Nivele.find(params.id)
+    /* let test = await Topic.find(params.id)
     await test.delete()
-    response.send(test)
+    response.send(test) */
   }
 
   async testByCourse ({ request, response, params }) {
-    let data = (await Nivele.query().where({ family_id: params.id }).fetch()).toJSON()
-    response.send(data)
+    /* let data = (await Nivele.query().where({ family_id: params.id }).fetch()).toJSON()
+    response.send(data) */
   }
+
   async testById ({ request, response, params }) {
     try {
       let test = (await Nivele.with('course').with('questions').find(params.id)).toJSON()
@@ -158,6 +187,7 @@ class NivelesController {
       console.error(error.name + '1: ' + error.message)
     }
   }
+
   async testByCourseId ({ request, response, params }) {
     try {
       const id = new ObjectId(params.id)
@@ -167,6 +197,7 @@ class NivelesController {
       console.error(error.name + '1: ' + error.message)
     }
   }
+
   async testExamById ({ request, response, params }) {
     try {
       let test = (await Nivele.with('exam').with('questions').find(params.id)).toJSON()
@@ -182,4 +213,4 @@ class NivelesController {
   }
 }
 
-module.exports = NivelesController
+module.exports = TopicController

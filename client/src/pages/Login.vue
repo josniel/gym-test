@@ -1,11 +1,13 @@
 <template>
   <div class="window-height">
-    <div style="background: linear-gradient(to right, #002938, #004e6d); border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 265px; width: 100%;"></div>
+    <div style="background: linear-gradient(to right, #002938, #004e6d); border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 300px; width: 100%;"></div>
     <!-- <q-img src="noimg.png" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 265px; width: 100%;"/> -->
     <div class="absolute-full column q-px-md no-wrap">
       <div class="q-mb-md">
-        <div class="text-center text-h2 q-pt-xl q-pb-lg">GymTest</div>
-        <div class="text-bold text-white">INICIO DE SESIÓN</div>
+        <div class="column items-center q-pt-xl q-pb-lg">
+          <q-img src="gymtest 1.png" style="width: 300px"/>
+        </div>
+        <div class="text-h6 text-bold text-white">INICIO DE SESIÓN</div>
       </div>
       <div class="q-px-md q-py-lg bg-white" style="border-radius: 10px;">
         <q-input dense filled type="email" v-model="form.email" placeholder="Usuario" :error="$v.form.email.$error" error-message="Este campo es requerido"  @blur="$v.form.email.$touch()">
@@ -24,23 +26,29 @@
             loading...
           </template>
         </q-btn>
-        <div class="row justify-center q-mb-lg">
+        <div class="row justify-center text-h6 q-mb-xl">
           <div class="text-grey q-mr-xs">Olvide</div>
           <div class="text-bold text-primary">mi contraseña</div>
         </div>
         <div class="row justify-center items-center q-mb-lg">
           <q-separator color="grey" class="col"/>
-          <div class="text-grey text-caption q-px-sm">O conectate usando</div>
+          <div class="text-grey q-px-sm">O conectate usando</div>
           <q-separator color="grey" class="col"/>
         </div>
         <div class="row justify-center q-mb-xl">
-          <q-avatar rounded class="q-mx-md bg-grey" size="50px" style="border-radius: 10px;"></q-avatar>
-          <q-avatar rounded class="q-mx-md bg-grey" size="50px" style="border-radius: 10px;"></q-avatar>
-          <q-avatar rounded class="q-mx-md bg-grey" size="50px" style="border-radius: 10px;"></q-avatar>
+          <q-avatar rounded class="q-mx-md" size="50px" style="border-radius: 15px;">
+            <q-img src="fa 1.png" class="full-height"/>
+          </q-avatar>
+          <q-avatar rounded class="q-mx-md" size="50px" style="border-radius: 15px;">
+            <q-img src="email 1.png" class="full-height"/>
+          </q-avatar>
+          <q-avatar rounded class="q-mx-md" size="50px" style="border-radius: 15px;">
+            <q-img src="twte 1.png" class="full-height"/>
+          </q-avatar>
         </div>
         <div class="row justify-center">
-          <div class="text-grey text-caption q-mr-xs">¿No tienes cuenta aun?</div>
-          <div class="text-bold text-primary text-caption" @click="$router.push('/registro')">Crear una cuenta</div>
+          <div class="text-grey q-mr-xs">¿No tienes cuenta aun?</div>
+          <div class="text-bold text-primary" @click="$router.push('/registro')">Crear una cuenta</div>
         </div>
       </div>
     </div>

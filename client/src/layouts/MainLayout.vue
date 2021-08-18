@@ -17,14 +17,16 @@
       <q-drawer v-if="rol === 1" v-model="DrawerOpen" style="width: 175px;">
         <div class="row items-center justify-center" style="background: linear-gradient(to right, #002938, #004e6d); height: 200px; width: 100%;">
           <div>
-            <div class="text-center text-h3 q-mb-md">GymTest</div>
+            <div class="column items-center q-pt-lg q-pb-xs">
+              <q-img src="gymtest 1.png" style="width: 200px"/>
+            </div>
             <div class="text-center text-bold text-h5 text-white">Admin</div>
           </div>
         </div>
         <q-list class="row q-pa-sm">
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 q-pa-sm" v-for="(item, index) in menu" :key="index">
-            <q-btn flat stack dense :color="selecBtn === item.label ? 'white' : 'primary'" class="q-px-md text-no-wrap" @click="item.label === 'Cerrar Sesión' ? cerrarSesion() : rutas(item)" :style="`${selecBtn === item.label ? 'background: linear-gradient(to right, #002938, #004e6d);' : ''} width: 100%;`" no-caps>
-              <q-img src="" style="width: 70px; height: 70px;"/>
+            <q-btn flat stack dense :color="selecBtn === item.label ? 'white' : 'primary'" class="q-pa-md text-no-wrap" @click="item.label === 'Salir' ? cerrarSesion() : rutas(item)" :style="`${selecBtn === item.label ? 'background: linear-gradient(to right, #002938, #004e6d);' : ''} width: 100%;`" no-caps>
+              <q-img :src="selecBtn === item.label ? item.src2 : item.src" style="width: 70px; height: 70px;"/>
               {{item.label}}
             </q-btn>
           </div>
@@ -34,7 +36,7 @@
       <q-footer elevated v-if="rol === 2">
         <div class="bg-primary shadow-2 full-width row justify-around q-py-sm" >
           <div class="row items-center" v-for="(item, index) in menu" :key="index">
-            <q-btn :icon="item.icon" color="white" flat stack dense no-caps size="md" @click="item.label === 'Cerrar Sesión' ? cerrarSesion() : $router.push(item.ruta)">
+            <q-btn :icon="item.icon" color="white" flat stack dense no-caps size="md" @click="item.label === 'Salir' ? cerrarSesion() : $router.push(item.ruta)">
               <div class="text-caption">{{item.label}}</div>
             </q-btn>
           </div>
@@ -62,33 +64,39 @@ export default {
       menu: [],
       menuAdmin: [
         {
-          icon: 'menu_book',
+          src: 'home 3.png',
+          src2: 'home 2.png',
           label: 'Home',
           ruta: '/administrador'
         },
         {
-          icon: '',
+          src: 'temas 1.png',
+          src2: '',
           label: 'Temas',
-          ruta: ''
+          ruta: '/topics'
         },
         {
-          icon: '',
+          src: 'pregunta 1.png',
+          src2: 'pregunta 12.png',
           label: 'Preguntas',
-          ruta: ''
+          ruta: '/questions'
         },
         {
-          icon: '',
+          src: 'examen 12.png',
+          src2: 'examen 1.png',
           label: 'Examenes',
           ruta: '/exams'
         },
         {
-          icon: '',
+          src: 'blog 1.png',
+          src2: 'blog 12.png',
           label: 'Blog',
-          ruta: ''
+          ruta: '/blog'
         },
         {
-          icon: 'logout',
-          label: 'Cerrar Sesión',
+          src: 'salir 2.png',
+          src2: '',
+          label: 'Salir',
           ruta: ''
         }
       ],

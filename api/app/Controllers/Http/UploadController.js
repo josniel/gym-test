@@ -98,28 +98,6 @@ class UploadController {
   async destroy ({ params, request, response }) {
   }
 
-  async excelExam ({request, response}) {
-    let files = request.file('fileExcel')
-    var filePath = await MoveFileService.moveFile(files)
-    var workbook = new ExcelJS.Workbook()
-    workbook = await workbook.xlsx.readFile(filePath)
-    let explanation = workbook.getWorksheet('Hoja1')
-    let colComment = explanation.getColumn('A')
-    colComment.eachCell(async (cell, rowNumber) => {
-      if (rowNumber >= 2) {
-        let exam = {}
-        let date = explanation.getCell('B' + rowNumber).value
-        let convocatoria = explanation.getCell('C' + rowNumber).value
-        let name = explanation.getCell('D' + rowNumber).value
-        exam.date = date
-        exam.convocatoria = convocatoria
-        exam.name = name
-        let save = await Examen.create(exam)
-      }
-    })
-    response.send(true)
-  }
-
   async excel ({request, response}) {
     let files = request.file('fileExcel')
     var data = request.only(['data'])

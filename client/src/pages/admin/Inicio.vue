@@ -8,10 +8,12 @@
           <q-card-section>
             <div class="row">
               <div class="text-h5 q-mr-xs">Bienvenido de nuevo</div>
-              <div class="text-h5 text-primary">Admin</div>
+              <div class="text-h5 text-bold text-primary">Admin</div>
             </div>
           </q-card-section>
-          <q-img src="noimg.png" style="height: 225px; width: 325px;"/>
+          <q-card-section>
+            <q-img src="study 1.png" class="q-pa-md" style="height: 200px; width: 300px;"/>
+          </q-card-section>
         </q-card-section>
       </q-card>
     </div>
