@@ -1,8 +1,8 @@
 {
-  "name": "pregunthales",
+  "name": "gym-test",
   "version": "0.0.1",
   "description": "a eiche project",
-  "productName": "Pregunthales",
+  "productName": "Gym-Test",
   "author": "example <example@example.com>",
   "private": true,
   "scripts": {
