@@ -50,7 +50,7 @@ export default {
         if (res) {
           this.$q.loading.hide()
           this.test = res
-          console.log('this.test >> ', this.test)
+          // console.log('this.test >> ', this.test)
           this.questions = this.test.questions
           this.indexQ = this.questions.length + 1
         }
@@ -65,7 +65,7 @@ export default {
       answer.isActive = true
     },
     send () {
-      console.log('envia respuesta')
+      // console.log('envia respuesta')
     }
   }
 }

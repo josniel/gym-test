@@ -200,7 +200,7 @@ export default {
       this.$api.get('topics').then(res => {
         if (res) {
           this.topics = res
-          console.log(this.topics)
+          // console.log(this.topics)
         }
         this.$q.loading.hide()
       })

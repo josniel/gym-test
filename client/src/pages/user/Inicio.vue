@@ -123,7 +123,7 @@ export default {
   },
   mounted () {
     this.baseuPerfil = env.apiUrl + 'perfil_img/'
-    console.log(this.baseuPerfil)
+    // console.log(this.baseuPerfil)
     this.getUser()
   },
   methods: {
@@ -131,7 +131,7 @@ export default {
       this.$api.get('user_info').then(v => {
         if (v) {
           this.user = v
-          console.log('usuario', v)
+          // console.log('usuario', v)
         }
       })
     }

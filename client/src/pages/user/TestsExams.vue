@@ -46,7 +46,7 @@ export default {
           this.$q.loading.hide()
           this.course = res
           this.tests = this.course.tests
-          console.log('this.course :>> ', this.course)
+          // console.log('this.course :>> ', this.course)
         }
       })
     }

@@ -262,7 +262,7 @@ export default {
       this.$api.get('getQuestions').then(res => {
         if (res) {
           this.questions = res
-          console.log(this.questions)
+          // console.log(this.questions)
         }
         this.$q.loading.hide()
       })
