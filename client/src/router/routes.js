@@ -35,6 +35,7 @@ const routes = [
   { path: '/splash', component: () => import('pages/Splash.vue') },
   { path: '/login', component: () => import('pages/Login.vue') },
   { path: '/registro', component: () => import('pages/Registro.vue') },
+  { path: '/recuperar_clave', component: () => import('pages/NewPassword.vue') },
   {
     path: '/',
     redirect: '/splash'

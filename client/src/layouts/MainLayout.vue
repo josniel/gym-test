@@ -33,11 +33,10 @@
         </q-list>
       </q-drawer>
 
-      <q-footer elevated v-if="rol === 2">
-        <div class="bg-primary shadow-2 full-width row justify-around q-py-sm" >
+      <q-footer elevated v-if="rol === 2" style="border-top-left-radius: 10px; border-top-right-radius: 10px">
+        <div class="bg-primary full-width row justify-around q-py-sm" style="border-top-left-radius: 10px; border-top-right-radius: 10px">
           <div class="row items-center" v-for="(item, index) in menu" :key="index">
-            <q-btn :icon="item.icon" color="white" flat stack dense no-caps size="md" @click="item.label === 'Salir' ? cerrarSesion() : $router.push(item.ruta)">
-              <div class="text-caption">{{item.label}}</div>
+            <q-btn :icon="item.icon" color="white" flat stack dense no-caps size="lg" @click="item.label === 'Salir' ? cerrarSesion() : $router.push(item.ruta)">
             </q-btn>
           </div>
         </div>
@@ -107,18 +106,23 @@ export default {
           ruta: '/inicio'
         },
         {
-          icon: 'store',
+          icon: 'view_list',
           label: 'Tienda',
           ruta: '/tienda'
         },
         {
-          icon: 'circle_notifications',
+          icon: 'apps',
+          label: 'Desafios',
+          ruta: '/desafios'
+        },
+        {
+          icon: 'person',
           label: 'Desafios',
           ruta: '/desafios'
         },
         {
           icon: 'logout',
-          label: 'Cerrar Sesión',
+          label: 'Salir',
           ruta: ''
         }
       ]
@@ -134,7 +138,6 @@ export default {
         if (v) {
           this.rol = v.roles[0]
           this.user = v
-          console.log(this.user)
           if (this.rol === 1) {
             this.menu = this.menuAdmin
           } else if (this.rol === 2) {

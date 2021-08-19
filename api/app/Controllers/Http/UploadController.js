@@ -2,7 +2,6 @@
 const ExcelJS = require('exceljs');
 const Question = use("App/Models/Question")
 const Examen = use("App/Models/Examen")
-const Niveles = use("App/Models/Nivele")
 const MoveFileService = use("App/Services/MoveFileService")
 const Helpers = use('Helpers')
 const mkdirp = use('mkdirp')
@@ -143,7 +142,7 @@ class UploadController {
         var explanation = workbook.getWorksheet('Hoja1')
         var colComment = explanation.getColumn('A')
         colComment.eachCell(async (cell, rowNumber) => {
-          if (rowNumber >= 2) {
+          /* if (rowNumber >= 2) {
             let test = {}
             let title = explanation.getCell('A' + rowNumber).value
             test.title = title
@@ -155,7 +154,7 @@ class UploadController {
             let id = explanation.getCell('D' + rowNumber).value
             test.id = id
             let save = await Niveles.create(test)
-          }
+          } */
         })
       }
     } catch (error) {
@@ -236,6 +235,7 @@ class UploadController {
 
   async getFileByDirectoryPerfil ({ params, response }) {
     const dir = params.file
+    console.log('foto', dir)
     response.download(Helpers.appRoot('storage/uploads/perfil') + `/${dir}`)
   }
 

@@ -1,7 +1,6 @@
 <template>
   <div class="window-height">
     <div style="background: linear-gradient(to right, #002938, #004e6d); border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 300px; width: 100%;"></div>
-    <!-- <q-img src="noimg.png" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 275px; width: 100%;"/> -->
 
     <div class="absolute-full column q-px-md no-wrap">
       <div class="q-mb-md" v-if="register">
@@ -30,9 +29,14 @@
       </div>
       <div class="q-px-md q-py-lg bg-white" style="border-radius: 10px;">
         <div v-if="register">
-          <q-input dense filled type="email" v-model="form.email" placeholder="Nombre o Usuario" :error="$v.form.email.$error" error-message="Este campo es requerido"  @blur="$v.form.email.$touch()">
+          <q-input dense filled v-model="form.name" placeholder="Nombre o Usuario" :error="$v.form.name.$error" error-message="Este campo es requerido"  @blur="$v.form.name.$touch()">
             <template v-slot:prepend>
               <q-icon name="person"/>
+            </template>
+          </q-input>
+          <q-input dense filled type="email" v-model="form.email" placeholder="Correo electrónico" :error="$v.form.email.$error" error-message="Este campo es requerido"  @blur="$v.form.email.$touch()">
+            <template v-slot:prepend>
+              <q-icon name="mail"/>
             </template>
           </q-input>
           <q-input dense filled class="q-mb-sm" type="password" v-model="password" placeholder="Contraseña" :error="$v.password.$error" error-message="Este campo es requerido"  @blur="$v.password.$touch()">
@@ -113,6 +117,7 @@ export default {
   },
   validations: {
     form: {
+      name: { required },
       email: { required, email }
     },
     form2: {
