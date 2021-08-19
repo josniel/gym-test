@@ -235,7 +235,6 @@ class UploadController {
 
   async getFileByDirectoryPerfil ({ params, response }) {
     const dir = params.file
-    console.log('foto', dir)
     response.download(Helpers.appRoot('storage/uploads/perfil') + `/${dir}`)
   }
 
