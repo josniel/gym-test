@@ -9,7 +9,7 @@
             <q-carousel-slide :name="index + 1" class="q-pa-none" v-for="(item, index) in preguntas" :key="index">
                 <q-btn v-if="slide > 1" class="absolute-top" round flat color="white" icon="arrow_back" @click="$refs.carousel.previous()" />
                 <div class="row justify-center">
-                    <q-img src="image 5.png" style="height: 400px; width: 100%; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px">
+                    <q-img src="image 5.png" style="height: 350px; width: 100%; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px">
                         <div class="row items-center q-mb-xl absolute-bottom bg-transparent">
                             <img src="balance 3.png" style="width: 50px" >
                             <div class="text-h5 text-bold q-pl-sm">Nombre del examen</div>
@@ -17,7 +17,7 @@
                     </q-img>
                 </div>
 
-                <div class="column items-center justify-center q-mx-md q-pa-md bg-white" style="position:relative; top: -40px; border-top-left-radius: 20px; border-top-right-radius: 20px">
+                <div class="q-mx-md q-px-md q-pt-md bg-white" style="position:relative; top: -40px; border-top-left-radius: 20px; border-top-right-radius: 20px">
                     <q-card class="bordes q-pa-none q-mb-md" style="width: 100%; border-radius: 10px;">
                         <div class="row items-center q-py-xs q-pl-xs">
                             <q-icon name="help" color="primary" size="40px" />
@@ -31,18 +31,21 @@
                         </div>
                     </q-card>
 
-                    <q-card clickable v-ripple class="bordes q-pa-none q-my-sm" v-for="(option, index2) in item.respuestas" :key="index2" style="width: 100%; border-radius: 10px;"
+                    <q-card clickable v-ripple class="bordes q-pa-none q-my-sm row items-center" v-for="(option, index2) in item.respuestas" :key="index2" style="width: 100%; border-radius: 10px;"
                     @click="answerSelected(option, item)">
-                        <div class="row items-center">
-                            <div class="bg-primary q-ma-none q-py-sm q-px-md text-h6 text-white" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px">{{index2 + 1}}</div>
-                            <div class="text-primary q-pl-sm">{{option.title}}</div>
-                        </div>
+                      <q-item class="q-pa-none row" style="width:100%">
+                        <q-item-section side class="q-py-sm q-px-md q-ma-none text-h6 bg-primary text-white"
+                        style="border-top-left-radius: 10px; border-bottom-left-radius: 10px">{{index2 + 1}}</q-item-section>
+                        <q-item-section :class="option.isActive ? 'bg-primary text-white' : 'bg-white text-primary'" class="q-px-sm q-ma-none"
+                        style="border-top-right-radius: 10px; border-bottom-right-radius: 10px">{{option.title}}</q-item-section>
+                      </q-item>
                     </q-card>
 
-                    <!-- <div class="column items-center q-py-md" style="width:100%;">
-                        <q-btn no-caps color="black" :label="index + 1 === preguntas.length ? 'Terminar' : 'Responder'" style="width:90%" size="lg" :disable="index + 1 === preguntas.length ? false : item.isActive ? false : true" @click="$refs.carousel.next()" />
-                        <q-btn v-if="index + 1 !== preguntas.length" flat no-caps color="grey-9" label="Omitir" style="width:90%" size="lg" @click="omitir(item)" />
-                    </div> -->
+                    <div class="column items-center q-pt-md" style="width:100%;">
+                        <q-btn no-caps color="primary" :label="index + 1 === preguntas.length ? 'Terminar' : 'Responder'" style="width:90%" size="md"
+                        :disable="index + 1 === preguntas.length ? false : item.isActive ? false : true"
+                        @click="$refs.carousel.next()" />
+                    </div>
                 </div>
             </q-carousel-slide>
         </q-carousel>
@@ -59,24 +62,24 @@ export default {
           pregunta: 'Esta es una pregunta 1',
           isActive: false,
           selected: false,
-          result: 'A',
+          result: '1',
           respuestas: [
-            { title: 'Esta es una opcion', value: 'A', isActive: false },
-            { title: 'Esta es una opcion', value: 'B', isActive: false },
-            { title: 'Esta es una opcion', value: 'C', isActive: false },
-            { title: 'Esta es una opcion', value: 'D', isActive: false }
+            { title: 'Esta es una opcion', value: '1', isActive: false },
+            { title: 'Esta es una opcion', value: '2', isActive: false },
+            { title: 'Esta es una opcion', value: '3', isActive: false },
+            { title: 'Esta es una opcion', value: '4', isActive: false }
           ]
         },
         {
           pregunta: 'Esta es una pregunta 2',
           isActive: false,
           selected: false,
-          result: 'B',
+          result: '2',
           respuestas: [
-            { title: 'Esta es una opcion', value: 'A', isActive: false },
-            { title: 'Esta es una opcion', value: 'B', isActive: false },
-            { title: 'Esta es una opcion', value: 'C', isActive: false },
-            { title: 'Esta es una opcion', value: 'D', isActive: false }
+            { title: 'Esta es una opcion', value: '1', isActive: false },
+            { title: 'Esta es una opcion', value: '2', isActive: false },
+            { title: 'Esta es una opcion', value: '3', isActive: false },
+            { title: 'Esta es una opcion', value: '4', isActive: false }
           ]
         }
       ]

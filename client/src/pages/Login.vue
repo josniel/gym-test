@@ -1,15 +1,15 @@
 <template>
   <div class="window-height">
-    <div style="background: linear-gradient(to right, #002938, #004e6d); border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 300px; width: 100%;"></div>
-    <!-- <q-img src="noimg.png" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 265px; width: 100%;"/> -->
-    <div class="absolute-full column q-px-md no-wrap">
-      <div class="q-mb-md">
-        <div class="column items-center q-pt-xl q-pb-lg">
-          <q-img src="gymtest 1.png" style="width: 300px"/>
+    <q-img src="fondo.png" style="height: 300px; width: 100%; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px">
+        <div class="absolute-full column justify-center" style="width:100%">
+          <div class="q-pb-sm row justify-center q-pb-md">
+            <q-img src="gymtest 1.png" style="width: 300px"/>
+          </div>
+          <div class="text-h6 text-bold text-white q-pb-xl">INICIO DE SESIÓN</div>
         </div>
-        <div class="text-h6 text-bold text-white">INICIO DE SESIÓN</div>
-      </div>
-      <div class="q-px-md q-py-lg bg-white" style="border-radius: 10px;">
+      </q-img>
+
+      <div class="q-mx-md q-pa-md bg-white" style="position:relative; top: -90px; border-top-left-radius: 20px; border-top-right-radius: 20px">
         <q-input dense filled type="email" v-model="form.email" placeholder="Usuario" :error="$v.form.email.$error" error-message="Este campo es requerido"  @blur="$v.form.email.$touch()">
           <template v-slot:prepend>
             <q-icon name="person"/>
@@ -51,7 +51,6 @@
           <div class="text-bold text-primary cursor-pointer" @click="$router.push('/registro')">Crear una cuenta</div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
