@@ -261,7 +261,7 @@ export default {
       })
       this.$api.get('getQuestions').then(res => {
         if (res) {
-          this.questions = res
+          this.questions = res.slice(0, 10)
           // console.log(this.questions)
         }
         this.$q.loading.hide()
