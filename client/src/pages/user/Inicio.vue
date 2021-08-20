@@ -1,22 +1,21 @@
 <template>
   <div>
-    <div style="background: linear-gradient(to right, #002938, #004e6d); border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 400px; width: 100%;"></div>
-
-    <div class="absolute-full column q-px-md no-wrap">
-      <div class="q-mb-md">
-        <div class="q-py-md">
-          <q-img src="gymtest 1.png" style="width: 200px"/>
-        </div>
-        <div class="row justify-between">
-          <div>
-            <div class="text-subtitle1 text-white">Hola, {{user.name}}</div>
-            <div class="text-white text-caption">Vamos a por todas en esta semana!</div>
+      <q-img src="fondo.png" style="height: 450px; width: 100%; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px">
+        <div class="bg-transparent" style="width:100%">
+          <div class="q-pb-sm">
+            <q-img src="gymtest 1.png" style="width: 150px"/>
           </div>
-          <q-img :src="user._id ? baseuPerfil + user._id : ''" style="width: 50px; height: 50px; border-radius: 100%"/>
+          <div class="row justify-between">
+            <div>
+              <div class="text-subtitle1 text-white">Hola, {{user.name}}</div>
+              <div class="text-white text-caption">Vamos a por todas en esta semana!</div>
+            </div>
+            <q-img :src="user._id ? baseuPerfil + user._id : ''" style="width: 50px; height: 50px; border-radius: 100%"/>
+          </div>
         </div>
-      </div>
+      </q-img>
 
-      <div class="q-px-md q-py-lg bg-white" style="border-radius: 10px; padding-bottom: 100px">
+      <div class="q-mx-md q-pa-md bg-white" style="position:absolute; top: 130px; padding-bottom: 100px; border-top-left-radius: 20px; border-top-right-radius: 20px">
         <q-card style="width: 100%; border-radius: 10px">
           <q-img src="Group.png" style="width: 100%; height: 200px; border-radius: 10px">
             <div class="absolute-full">
@@ -64,11 +63,11 @@
 
         <div class="text-h6 text-bold text-primary q-mt-sm">Materias</div>
         <div class="text-caption text-grey-8">Todas nuestras materias</div>
-        <q-scroll-area v-if="materias.length" horizontal class="q-mt-md" :thumb-style="thumbStyle" style="height: 230px; width: 100%;">
+        <q-scroll-area v-if="materias.length" horizontal class="q-mt-md" :thumb-style="thumbStyle" style="height: 160px; width: 100%;">
           <div class="row no-wrap q-gutter-md">
             <q-card flat style="width: 150px; height: 150px" clickable v-ripple v-for="(item, index) in materias" :key="index"
-            >
-              <q-img :src="item.img" style="height: 100%; width: 100%; border-radius: 10px">
+            @click="$router.push('/examen/' + item)">
+              <q-img src="materia1 1.png" style="height: 100%; width: 100%; border-radius: 10px">
                 <div class="absolute-full column justify-center items-center">
                   <q-icon name="person" color="white" size="50px" />
                   <div class="text-h6">Nombre</div>
@@ -98,7 +97,6 @@
           </div>
         </q-scroll-area>
       </div>
-    </div>
   </div>
 </template>
 
@@ -117,7 +115,7 @@ export default {
         width: '8px',
         opacity: 0
       },
-      materias: [],
+      materias: [1, 2, 3],
       blogs: [1, 2, 3]
     }
   },

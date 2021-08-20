@@ -137,18 +137,18 @@ export default {
         },
         {
           icon: 'view_list',
-          label: 'Tienda',
-          ruta: '/tienda'
+          label: 'Temas',
+          ruta: '/temas'
         },
         {
           icon: 'apps',
           label: 'Desafios',
-          ruta: '/desafios'
+          ruta: ''
         },
         {
           icon: 'person',
           label: 'Desafios',
-          ruta: '/desafios'
+          ruta: ''
         },
         {
           icon: 'logout',
