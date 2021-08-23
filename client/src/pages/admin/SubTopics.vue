@@ -153,7 +153,7 @@ export default {
       })
       await this.$api.get('subTopics').then(res => {
         if (res) {
-          this.subTopics = res.slice(0, 20)
+          this.subTopics = res.slice(0, 10)
           // console.log(this.subTopics)
         }
         this.$q.loading.hide()
